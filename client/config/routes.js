@@ -7,8 +7,6 @@ export default [
   },
   {
     path: '/app',
-    // path: '/app/:id',
-    // props: true,
     component: Todo,
     name: 'app',
     meta: {
