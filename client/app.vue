@@ -28,17 +28,17 @@ export default {
     Footer
   },
   mounted () {
-    let i = 1
+    // let i = 1
     // this.updateCountAsync({
     //   num: i++,
     //   time: 2000
     // })
-    setInterval(() => {
-      this.$store.commit('updateCount', {
-        num: i++,
-        time: 2
-      })
-    }, 1000)
+    // setInterval(() => {
+    //   this.$store.commit('updateCount', {
+    //     num: i++,
+    //     time: 2
+    //   })
+    // }, 1000)
   },
   methods: {
     ...mapActions(['updateCountAsync']),
