@@ -23,6 +23,9 @@ import {
 } from 'vuex'
 
 export default {
+  metaInfo: {
+    title: 'A SSR App'
+  },
   components: {
     Header,
     Footer
