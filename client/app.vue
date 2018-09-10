@@ -8,6 +8,7 @@
     <transition name="fade">
       <router-view />
     </transition>
+    <!-- <notification content="test notification"/> -->
     <Footer></Footer>
   </div>
 </template>
@@ -31,6 +32,10 @@ export default {
     Footer
   },
   mounted () {
+    this.$notify({
+      content: 'test $notify',
+      btn: 'close'
+    })
     // let i = 1
     // this.updateCountAsync({
     //   num: i++,
