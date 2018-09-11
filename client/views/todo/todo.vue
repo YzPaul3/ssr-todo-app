@@ -46,6 +46,8 @@ export default {
       return this.todos.filter(todo => completed === todo.completed)
     }
   },
+  mounted: {
+  },
   methods: {
     addTodo (e) {
       this.todos.unshift({
