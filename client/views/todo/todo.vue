@@ -50,7 +50,12 @@ export default {
     }
   },
   mounted () {
-    this.fetchTodos()
+    if (this.todos && this.todos.length <= 0) {
+      this.fetchTodos()
+    }
+  },
+  asyncData ({ store, cookies }) {
+    return store.dispatch('fetchTodos', cookies)
   },
   methods: {
     ...mapActions(['fetchTodos', 'addTodos']),
@@ -61,13 +66,13 @@ export default {
       e.target.value = ''
     },
     deleteTodo (id) {
-      this.todos.splice(this.todos.findIndex(todo => todo.id === id), 1)
+      // this.todos.splice(this.todos.findIndex(todo => todo.id === id), 1)
     },
     toggleFilter (state) {
       this.filter = state
     },
     clearAllCompleted () {
-      this.todos = this.todos.filter(todo => !todo.completed)
+      // this.todos = this.todos.filter(todo => !todo.completed)
     }
   }
 }

@@ -12,7 +12,7 @@ const app = new Koa()
 app.keys = ['vue ssr']
 
 app.use(koaSession({
-  key: 'v-ssr-id',
+  key: 'userid',
   maxAge: 3600 * 1000
 }, app))
 

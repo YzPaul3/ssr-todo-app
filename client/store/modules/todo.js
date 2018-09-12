@@ -1,4 +1,5 @@
 import model from '../../model/client-model'
+import serverModel from '../../model/server-model'
 import { handleError } from '../../model/util'
 import notify from '../../components/notification/function'
 
@@ -19,8 +20,8 @@ export const getters = {
 }
 
 export const actions = {
-  fetchTodos ({ commit }) {
-    model.getAllTodos()
+  fetchTodos ({ commit }, cookies) {
+    return serverModel.getAllTodos(cookies)
       .then(data => {
         commit('fillTodos', data.result)
       })

@@ -3,26 +3,21 @@ const ejs = require('ejs')
 module.exports = async (ctx, renderer, template) => {
   ctx.headers['Content-Type'] = 'text/html'
 
-  const context = { url: ctx.path }
+  const context = {
+    url: ctx.path,
+    cookies: ctx.header.cookie
+  }
 
   try {
     const appString = await renderer.renderToString(context)
-    const {
-      title
-      // htmlAttrs,
-      // bodyAttrs,
-      // link,
-      // style,
-      // script,
-      // noscript,
-      // meta
-    } = context.meta.inject()
+    const { title } = context.meta.inject()
 
     const html = ejs.render(template, {
       appString,
       style: context.renderStyles(),
       scripts: context.renderScripts(),
-      title: title.text()
+      title: title.text(),
+      initialState: context.renderState()
     })
 
     ctx.body = html
