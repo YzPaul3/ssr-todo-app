@@ -23,13 +23,15 @@
 </template>
 
 <script>
+import {
+  mapGetters,
+  mapActions
+} from 'vuex'
 import Item from './item.vue'
 import Tabs from './tabs.vue'
-let id = 0
 export default {
   data () {
     return {
-      todos: [],
       filter: 'all'
     }
   },
@@ -38,6 +40,7 @@ export default {
     Tabs
   },
   computed: {
+    ...mapGetters(['todos']),
     filteredTodos () {
       if (this.filter === 'all') {
         return this.todos
@@ -46,14 +49,14 @@ export default {
       return this.todos.filter(todo => completed === todo.completed)
     }
   },
-  mounted: {
+  mounted () {
+    this.fetchTodos()
   },
   methods: {
+    ...mapActions(['fetchTodos', 'addTodos']),
     addTodo (e) {
-      this.todos.unshift({
-        id: id++,
-        content: e.target.value.trim(),
-        completed: false
+      this.addTodos({
+        todo: e.target.value.trim()
       })
       e.target.value = ''
     },
