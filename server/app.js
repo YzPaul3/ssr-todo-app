@@ -6,6 +6,7 @@ const koaSession = require('koa-session')
 const staticRouter = require('./routers/static')
 const apiRouter = require('./routers/api')
 const userRouter = require('./routers/user')
+const Cookie = require('../util/tools')
 
 const app = new Koa()
 
@@ -31,6 +32,19 @@ app.use(async (ctx, next) => {
     } else {
       ctx.body = 'please try again later'
     }
+  }
+})
+
+app.use(async (ctx, next) => {
+  let cookie = ctx.header.cookie
+  let userID = Cookie.getCookie(cookie, 'userid')
+  if (userID) {
+    console.log('已登录 userid: ' + userID)
+    await next()
+  } else if (ctx.path !== '/login' && ctx.path !== '/user/login' && !ctx.path.includes('/api')) {
+    ctx.redirect('/login')
+  } else {
+    await next()
   }
 })
 

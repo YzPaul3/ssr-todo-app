@@ -1,18 +1,19 @@
 const Router = require('koa-router')
 const axios = require('axios')
 const domain = require('../domain.config')
+const Cookie = require('../../util/tools')
 
 const apiRouter = new Router({ prefix: '/api' })
 
 const validateLogin = async (ctx, next) => {
-  // if (!ctx.session.user) {
-  //   ctx.status = 401
-  //   ctx.body = 'need login'
-  // } else {
-  //   await next()
-  // }
-  console.log(ctx.header)
-  await next()
+  let cookie = ctx.header.cookie
+  let userID = Cookie.getCookie(cookie, 'userid')
+  if (!userID) {
+    ctx.status = 401
+    ctx.body = 'need login'
+  } else {
+    await next()
+  }
 }
 
 const request = axios.create({

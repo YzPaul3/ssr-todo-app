@@ -16,12 +16,14 @@ export default context => {
           return Component.asyncData({
             route: router.currentRoute,
             cookies: context.cookies,
+            router,
             store
           })
         }
       })).then(data => {
         context.meta = app.$meta()
         context.state = store.state
+        context.router = router
         resolve(app)
       })
     })

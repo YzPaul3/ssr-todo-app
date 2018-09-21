@@ -54,8 +54,11 @@ export default {
       this.fetchTodos()
     }
   },
-  asyncData ({ store, cookies }) {
+  asyncData ({ store, cookies, router }) {
+    console.log('asyncData')
     return store.dispatch('fetchTodos', cookies)
+    // router.replace('/login')
+    // return Promise.resolve()
   },
   methods: {
     ...mapActions(['fetchTodos', 'addTodos']),
