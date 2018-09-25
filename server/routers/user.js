@@ -8,17 +8,18 @@ userRouter.post('/login', async ctx => {
     ctx.session.user = {
       username: 'eddie'
     }
+    ctx.status = 200
     ctx.body = {
-      success: true,
-      data: {
-        username: 'eddie'
-      }
+      respCode: '00',
+      respMsg: true,
+      result: true
     }
   } else {
     ctx.status = 400
     ctx.body = {
-      success: false,
-      message: '用户名密码错误'
+      respCode: '400',
+      respMsg: '用户名密码错误!',
+      result: null
     }
   }
 })

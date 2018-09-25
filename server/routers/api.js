@@ -23,22 +23,15 @@ const request = axios.create({
 
 apiRouter.use(validateLogin)
 
-const successResponse = (data) => {
-  return {
-    success: true,
-    data
-  }
-}
-
 apiRouter
   .get('/todos', async (ctx) => {
     const res = await request.get('/todos')
-    ctx.body = successResponse(res.data)
+    ctx.body = res.data
   })
   .post('/addTodo', async (ctx) => {
     const param = ctx.request.body
     const res = await request.post('/addTodo', param)
-    ctx.body = successResponse(res.data)
+    ctx.body = res.data
   })
 
 module.exports = apiRouter

@@ -29,11 +29,12 @@ export default {
     ...mapActions(['login']),
     doSubmit (e) {
       e.preventDefault()
+      const param = {
+        username: this.username,
+        password: this.password
+      }
       if (this.validate()) {
-        this.login({
-          username: this.username,
-          password: this.password
-        }).then(() => {
+        this.login(param).then(() => {
           this.$router.replace('/app')
         })
       }
