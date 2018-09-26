@@ -16,9 +16,10 @@
     "dev-server": "nodemon server/server.js",
     "mock-server": "nodemon server/mock/mock-server.js",
     "dev": "concurrently \"npm run dev-client\" \"npm run dev-server\" \"npm run mock-server\"",
-    "start": "cross-env NODE_ENV=production node server/server.js"
+    "start": "cross-env NODE_ENV=production node server/server.js",
+    "pm2": "pm2 start --env production"
   },
-  "author": "",
+  "author": "heyuze",
   "license": "ISC",
   "dependencies": {
     "axios": "^0.18.0",
