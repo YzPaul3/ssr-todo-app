@@ -36,6 +36,18 @@ app.use(async (ctx, next) => {
 })
 
 app.use(async (ctx, next) => {
+  if (ctx.path === '/favicon.ico') {
+    await send(ctx, '/favicon.ico', { root: path.join(__dirname, '../') })
+  } else {
+    await next()
+  }
+})
+
+app.use(koaBody())
+app.use(userRouter.routes()).use(userRouter.allowedMethods())
+app.use(staticRouter.routes()).use(staticRouter.allowedMethods())
+
+app.use(async (ctx, next) => {
   let cookie = ctx.header.cookie
   let userID = Cookie.getCookie(cookie, 'userid')
   if (userID) {
@@ -48,17 +60,6 @@ app.use(async (ctx, next) => {
   }
 })
 
-app.use(async (ctx, next) => {
-  if (ctx.path === '/favicon.ico') {
-    await send(ctx, '/favicon.ico', { root: path.join(__dirname, '../') })
-  } else {
-    await next()
-  }
-})
-
-app.use(koaBody())
-app.use(userRouter.routes()).use(userRouter.allowedMethods())
-app.use(staticRouter.routes()).use(staticRouter.allowedMethods())
 app.use(apiRouter.routes()).use(apiRouter.allowedMethods())
 
 let pageRouter
