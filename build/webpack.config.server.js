@@ -34,6 +34,21 @@ config = merge(baseConfig, {
             'stylus-loader'
           ]
         })
+      },
+      {
+        test: /\.css/,
+        use: ExtractPlugin.extract({
+          fallback: 'vue-style-loader',
+          use: [
+            'css-loader',
+            {
+              loader: 'postcss-loader',
+              options: {
+                sourceMap: true
+              }
+            }
+          ]
+        })
       }
     ]
   },

@@ -1,4 +1,6 @@
 node_modules
 public
 server-build
-no.sh
+build.sh
+favicon.ico
+.DS_Store

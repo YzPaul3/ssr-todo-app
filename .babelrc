@@ -4,7 +4,14 @@
   ],
   "plugins": [
     "transform-vue-jsx",
-    "syntax-dynamic-import"
+    "syntax-dynamic-import",
+    [
+      "component",
+      {
+        "libraryName": "element-ui",
+        "styleLibraryName": "~client/assets/theme"
+      }
+    ]
   ],
   "env": {
     "browser": {

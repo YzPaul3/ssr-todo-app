@@ -24,6 +24,13 @@ const config = {
         options: vueLoaderOptions(isDev)
       },
       {
+        test: /\.(ttf|eot|woff|woff2)$/,
+        loader: 'file-loader',
+        options: {
+          name: 'fonts/[name].[ext]'
+        }
+      },
+      {
         test: /\.jsx$/,
         loader: 'babel-loader'
       },

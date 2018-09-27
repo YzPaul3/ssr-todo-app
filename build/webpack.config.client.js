@@ -2,6 +2,7 @@ const path = require('path')
 const HTMLPlugin = require('html-webpack-plugin')
 const webpack = require('webpack')
 const ExtractPlugin = require('extract-text-webpack-plugin')
+const UglifyJSPlugin = require('uglifyjs-webpack-plugin')
 const merge = require('webpack-merge')
 const baseConfig = require('./webpack.config.base')
 const VueClientPlugin = require('vue-server-renderer/client-plugin')
@@ -9,6 +10,7 @@ const VueClientPlugin = require('vue-server-renderer/client-plugin')
 const isDev = process.env.NODE_ENV === 'development'
 
 const defaultPlugins = [
+  new ExtractPlugin('styles.[contentHash:8].css'),
   new webpack.DefinePlugin({
     'process.env': {
       NODE_ENV: isDev ? '"development"' : '"production"'
@@ -56,6 +58,20 @@ if (isDev) {
             },
             'stylus-loader'
           ]
+        }, {
+          test: /\.css/,
+          use: ExtractPlugin.extract({
+            fallback: 'vue-style-loader',
+            use: [
+              'css-loader',
+              {
+                loader: 'postcss-loader',
+                options: {
+                  sourceMap: true
+                }
+              }
+            ]
+          })
         }
       ]
     },
@@ -82,7 +98,10 @@ if (isDev) {
           use: ExtractPlugin.extract({
             fallback: 'vue-style-loader',
             use: [
-              'css-loader',
+              {
+                loader: 'css-loader',
+                options: { minimize: true }
+              },
               {
                 loader: 'postcss-loader',
                 options: {
@@ -92,16 +111,36 @@ if (isDev) {
               'stylus-loader'
             ]
           })
+        }, {
+          test: /\.css/,
+          use: ExtractPlugin.extract({
+            fallback: 'vue-style-loader',
+            use: [
+              {
+                loader: 'css-loader',
+                options: { minimize: true }
+              },
+              {
+                loader: 'postcss-loader',
+                options: {
+                  sourceMap: true
+                }
+              }
+            ]
+          })
         }
       ]
     },
     plugins: defaultPlugins.concat([
-      new ExtractPlugin('styles.[contentHash:8].css'),
+      // new ExtractPlugin('styles.[contentHash:8].css'),
       new webpack.optimize.CommonsChunkPlugin({
         name: 'vendor'
       }),
       new webpack.optimize.CommonsChunkPlugin({
         name: 'runtime'
+      }),
+      new UglifyJSPlugin({
+        test: /\.js($|\?)/i
       }),
       new webpack.NamedChunksPlugin()
     ])
