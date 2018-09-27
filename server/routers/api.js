@@ -18,7 +18,7 @@ const validateLogin = async (ctx, next) => {
 
 const request = axios.create({
   baseURL: `${domain}/api/`,
-  timeout: 1000
+  timeout: 10000
 })
 
 apiRouter.use(validateLogin)
