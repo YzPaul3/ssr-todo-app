@@ -1,7 +1,7 @@
 import model from '../../model/client-model'
 // import serverModel from '../../model/server-model'
 import { handleError } from '../../model/util'
-import notify from '../../components/notification/function'
+import { Notification } from 'element-ui'
 
 export const state = {
   todos: [],
@@ -44,8 +44,8 @@ export const actions = {
       model.login(param)
         .then(data => {
           commit('doLogin', data)
-          notify({
-            content: '登录成功！'
+          Notification.success({
+            message: '登录成功！'
           })
           resolve()
         })
